@@ -31,6 +31,19 @@ def get_uber_estimate():
     estimate = uber_response.json.get('prices')
     return estimate
 
+def get_lyft_estimate():
+    auth_flow = ClientCredentialGrant(
+        lyft.client_id,
+        lyft.client_secret,
+        ['public']
+    )
+
+    session = auth_flow.get_session()
+    client = LyftRidesClient(session)
+    response = client.get_ride_types(37.7833, -122.4167)
+    ride_types = response.json.get('ride_types')
+    return ride_types
+
 class GreetingsPage(webapp2.RequestHandler):
     def get(self):
         home_template = jinja_env.get_template("templates/index.html")
@@ -42,57 +55,3 @@ class GreetingsPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', GreetingsPage)
 ], debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def get_lyft_estimate():
-auth_flow = ClientCredentialGrant(
-    lyft.client_id,
-    lyft.client_secret,
-    ['public']
-    )
-session = auth_flow.get_session()
-client = LyftRidesClient(session)
-response = client.get_ride_types(37.7833, -122.4167)
-ride_types = response.json.get('ride_types')
