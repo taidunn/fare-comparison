@@ -3,9 +3,13 @@ import webapp2
 import os
 import jinja2
 import lyft_rides
+import uber
 from uber_rides.session import Session
 from uber_rides.client import UberRidesClient
-import uber
+import lyft
+from lyft_rides.auth import ClientCredentialGrant
+from lyft_rides.session import Session
+from lyft_rides.client import LyftRidesClient
 
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -38,3 +42,57 @@ class GreetingsPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', GreetingsPage)
 ], debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def get_lyft_estimate():
+auth_flow = ClientCredentialGrant(
+    lyft.client_id,
+    lyft.client_secret,
+    ['public']
+    )
+session = auth_flow.get_session()
+client = LyftRidesClient(session)
+response = client.get_ride_types(37.7833, -122.4167)
+ride_types = response.json.get('ride_types')
