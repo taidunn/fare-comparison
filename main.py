@@ -13,7 +13,8 @@ jinja_env = jinja2.Environment(
 
 class GreetingsPage(webapp2.RequestHandler):
     def get(self):
-        self.response.write("Hello world") # Home Page
+        home_template = jinja_env.get_template("templates/index.html")
+        self.response.write(home_template.render())# Home Page
 
     def post(self):
         pass # Results Page
