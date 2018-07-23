@@ -10,7 +10,10 @@ jinja_env = jinja2.Environment(
 
 class GreetingsPage(webapp2.RequestHandler):
     def get(self):
-        self.response.write("Hello world")
+        self.response.write("Hello world") # Home Page
+
+    def post(self):
+        pass # Results Page
 
 app = webapp2.WSGIApplication([
     ('/', GreetingsPage)

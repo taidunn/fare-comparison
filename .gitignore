@@ -3,3 +3,6 @@ appengine-generated/
 
 #Ignore generated python files
 *.pyc
+
+#Required Libraries
+lib/
