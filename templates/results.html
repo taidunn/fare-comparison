@@ -3,26 +3,33 @@
   <head>
   <title>Results Page</title>
   <link rel="stylesheet" href="../styles/results.css">
+  <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
   </head>
   <body>
+    <div class="background-image"></div>
+    <div class="title">
+      <h1>Fare Comparison</h1>
+    </div>
     <div class="TableMaster">
-		<table style="width:100%">
-   <tbody><tr>
-    <th class=Focus>Info</th>
-	<th class=Focus>UBER</th>
-	<th class=Focus>LYFT</th>
-  </tr>
-  <tr>
-    <td class="Focus"><b>Fare</b></td>
-	<td class="Details">{{UFARE}}</td>
-	<td class="Details">{{LFARE}}</td>
-  </tr>
-  <tr>
-    <td class="Focus">ETA</td>
-	<td class="Details">UETA}}</td>
-    <td class="Details">{{LETA}}</td>
-  </tr>
-</tbody></table>
-</div>
+      <table style="width:100%">
+      <tbody>
+        <tr>
+          <th class=Focus>Info</th>
+	        <th class=Focus>UBER</th>
+	        <th class=Focus>LYFT</th>
+        </tr>
+      <tr>
+        <td class="Focus"><b>Fare</b></td>
+	      <td class="Details">{{UFARE}}</td>
+	      <td class="Details">{{LFARE}}</td>
+      </tr>
+      <tr>
+        <td class="Focus">ETA</td>
+	      <td class="Details">UETA}}</td>
+        <td class="Details">{{LETA}}</td>
+      </tr>
+      </tbody>
+      </table>
+    </div>
   </body>
 </html>

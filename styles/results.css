@@ -1,10 +1,41 @@
-html {
+/* html {
 	background: url('../images/background1.jpg') no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+} */
+h1 {
+  text-align: center;
+  font-family: 'Poiret One', cursive;
 }
+
+.title{
+  width: 100%;
+  height: 20%;
+  color: white;
+  font-size: 28px;
+}
+
+.background-image {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../images/background1.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  filter: blur(3px);
+}
+
+.TableMaster{
+	width:70%;
+	margin-left:15%;
+	margin-right:15%;
+}
+
 .TableMaster table, th, td {
   border: 3px solid white;
 }
@@ -12,16 +43,14 @@ html {
   color: white;
   font-weight: bold;
 }
-/* .TableMaster #focus td {
-  color: white;
-  font-weight: bold;
-} */
+
 .Focus {
   color: black !important;
   font-weight: bold !important;
   font-size: 30px !important;
   text-align: center;
   text-shadow: #FFF 0 0 20px;
+	font-family: 'Poiret One', cursive;
 }
 .TableMaster td {
   color: white;
@@ -30,6 +59,7 @@ html {
   font-weight: bold !important;
   text-align: center;
   text-shadow: #000 0 0 20px !important;
+	font-family: 'Poiret One', cursive;
 }
 table {
 	border: 0px;
