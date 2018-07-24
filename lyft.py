@@ -1,3 +1,3 @@
 client_id = "OheoVsyE66AW"
-client_secret = "bpP9h2PtwtPqVEzs9kAsWqXIM9acuvT_"
-server_token = "DOPXFsReNXCtKAbUeIhFXVQpLYiDrg9NGAthMW34JOOm2JSniA35vJkVNcGu7X3f8HAH4vjGeOtk5QW0f156vRUqP1b9oq1UU2Zhw2EBYHp9qYxJLY0/bYI"
+client_secret = "o_TOMfaeFKSUWhAu-6kjE-ytFs-MK9th"
+server_token = "zrfPATaJAyuIzGdz46Rc/XpupKQx8FZzG5P9H81mj9t7VfOKhBQzDPjKjhNPSjsJaFebIuUcQBoNf99JwUqnfZvqfjXJoW6c6Kvi/zGR13i7DiXJI0VwYX8="
