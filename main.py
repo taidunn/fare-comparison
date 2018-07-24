@@ -55,13 +55,14 @@ class GreetingsPage(webapp2.RequestHandler):
             print e
 
     def post(self):
-        pass # Results Page
+        result_template = jinja_env.get_template("templates/results.html")
+        self.response.write(_template.render())# Home Page
 
 class ResultsPage(webapp2.RequestHandler):
     def get(self):
         results_page = jinja_env.get_template('templates/results.html')
         self.response.write(results_page.render())
-        
+
 class TestPage(webapp2.RequestHandler):
     def get(self):
         test_template = jinja_env.get_template("templates/api-test.html")

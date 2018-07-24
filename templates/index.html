@@ -3,19 +3,25 @@
   <head>
   <title>Fare Comparison Home</title>
   <link rel="stylesheet" href="../styles/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
   </head>
   <body>
     <div class="background-image"></div>
-    <!-- <img src="http://imgtube.ru/images/stories/2013/09/969/03.jpg" alt="background"> -->
+    <div class="title">
+      <h1>Fare Comparison</h1>
+    </div>
     <div class="top">
       <h1>Where are you coming from?</h1>
     </div>
     <div class="bottom">
       <h1>Where are you going?</h1>
     </div>
-    <div method = "post" class = "main" align="center">
-      <input id="from" type="text" name="toAddress" value="coming from"> </br>
-      <input id="to" type="text" name="fromAddress" value= "going to">
+    <div class = "main" align="center">
+      <form method="post">
+        <input id="from" type="text" name="toAddress" value="Address 1"> </br>
+        <input id="to" type="text" name="fromAddress" value= "Address 2"></br>
+        <input id="go" type="submit" value="Go!">
+      </form>
     </div>
   </body>
 </html>
