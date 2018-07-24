@@ -6,3 +6,7 @@ appengine-generated/
 
 #Required Libraries
 lib/
+
+.DS_Store
+lyft.py
+uber.py
