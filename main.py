@@ -57,11 +57,18 @@ class GreetingsPage(webapp2.RequestHandler):
     def post(self):
         pass # Results Page
 
+class ResultsPage(webapp2.RequestHandler):
+    def get(self):
+        results_page = jinja_env.get_template('templates/results.html')
+        self.response.write(results_page.render())
+        
 class TestPage(webapp2.RequestHandler):
     def get(self):
         test_template = jinja_env.get_template("templates/api-test.html")
         self.response.write(test_template.render())
 
 app = webapp2.WSGIApplication([
-    ('/', GreetingsPage), ("/test", TestPage)
+    ('/', GreetingsPage),
+    ("/test", TestPage),
+    ('/results', ResultsPage)
 ], debug=True)
