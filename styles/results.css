@@ -5,3 +5,35 @@ html {
 	-o-background-size: cover;
 	background-size: cover;
 }
+.TableMaster table, th, td {
+  border: 3px solid white;
+}
+.TableMaster th {
+  color: white;
+  font-weight: bold;
+}
+/* .TableMaster #focus td {
+  color: white;
+  font-weight: bold;
+} */
+.Focus {
+  color: black !important;
+  font-weight: bold !important;
+  font-size: 30px !important;
+  text-align: center;
+  text-shadow: #FFF 0 0 20px;
+}
+.TableMaster td {
+  color: white;
+}
+.Details {
+  font-weight: bold !important;
+  text-align: center;
+  text-shadow: #000 0 0 20px !important;
+}
+table {
+	border: 0px;
+}
+.TableMaster {
+	margin-right: 920px;
+}
