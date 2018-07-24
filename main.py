@@ -48,10 +48,20 @@ class GreetingsPage(webapp2.RequestHandler):
     def get(self):
         home_template = jinja_env.get_template("templates/index.html")
         self.response.write(home_template.render())# Home Page
+        try:
+            print get_uber_estimate()
+            print get_lyft_estimate()
+        except Exception as e:
+            print e
 
     def post(self):
         pass # Results Page
 
+class TestPage(webapp2.RequestHandler):
+    def get(self):
+        test_template = jinja_env.get_template("templates/api-test.html")
+        self.response.write(test_template.render())
+
 app = webapp2.WSGIApplication([
-    ('/', GreetingsPage)
+    ('/', GreetingsPage), ("/test", TestPage)
 ], debug=True)
