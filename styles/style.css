@@ -1,5 +1,13 @@
 h1 {
   text-align: center;
+  font-family: 'Poiret One', cursive;
+}
+
+.title{
+  width: 100%;
+  height: 20%;
+  color: white;
+  font-size: 28px;
 }
 
 .background-image {
@@ -9,42 +17,55 @@ h1 {
   top: 0;
   width: 100%;
   height: 100%;
-  background: url(http://imgtube.ru/images/stories/2013/09/969/03.jpg);
+  background: url('../images/background1.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  -webkit-filter: blur(7px);
-  filter: blur(7px);
+  -webkit-filter: blur(3px);
+  filter: blur(3px);
 }
 
 .top {
   color: white;
   background-color: black;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
   width: 15%;
   height: 15%;
   margin: 0 auto;
-}
+  transform: translateY(-40px);
 
-#to {
-  width: 15%;
-  height: 15%;
-  margin: 0 auto;
 }
 
 #from {
-  width: 15%;
+  width: 30%;
   height: 15%;
   margin: 0 auto;
+  transform: translateY(-135px);
+}
+
+#to {
+  width: 30%;
+  height: 15%;
+  margin: 0 auto;
+  transform: translateY(0px);
+
 }
 
 .bottom {
   background-color: black;
   color: white;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
   width: 15%;
   height: 15%;
   /* position: absolute; */
   /* line-height: 200px; */
   margin: 0 auto;
-  
+  transform: translateY(0px);
+}
+
+#go{
+  color: white;
+  background-color: black;
+  color: white;
+  width: 15%;
+  height: 15%;
+  font-size: 20px;
+  transform: translateY(20px);
 }
