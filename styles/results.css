@@ -51,6 +51,7 @@ h1 {
   text-align: center;
   text-shadow: #FFF 0 0 20px;
 	font-family: 'Poiret One', cursive;
+  background-color: rgba(255, 255, 255, 0.3)
 }
 .TableMaster td {
   color: white;
@@ -60,6 +61,7 @@ h1 {
   text-align: center;
   text-shadow: #000 0 0 20px !important;
 	font-family: 'Poiret One', cursive;
+  font-size: 20px;
 }
 table {
 	border: 0px;
