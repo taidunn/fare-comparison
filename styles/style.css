@@ -33,14 +33,14 @@ h1 {
 
 }
 
-#from {
+#from_address {
   width: 30%;
   height: 15%;
   margin: 0 auto;
   transform: translateY(-135px);
 }
 
-#to {
+#to_address {
   width: 30%;
   height: 15%;
   margin: 0 auto;
