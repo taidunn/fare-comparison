@@ -7,6 +7,7 @@ import os
 import jinja2
 import uber
 import lyft
+import googlemaps
 from google.appengine.api import urlfetch
 
 Deci = decimal.Decimal
@@ -19,22 +20,6 @@ def format_seconds(seconds):
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
     return "%d:%02d:%02d" % (h, m, s)
-
-def get_lyft_estimate():
-    # auth_flow = ClientCredentialGrant(
-    #     client_id = lyft.client_id,
-    #     client_secret = lyft.client_secret,
-    #     scopes = ['public']
-    # )
-    #
-    # session = auth_flow.get_session()
-    # client = LyftRidesClient(session)
-    # # response = client.get_cost_estimates(start_latitude=start_lat, start_longitude=start_long, end_latitude=end_lat, end_longitude=end_long)
-    # response = client.get_ride_types(37.7833, -122.4167)
-    # ride_types = response.json.get('ride_types')
-    # return ride_types
-    pass
-
 
 class GreetingsPage(webapp2.RequestHandler):
     def fetch_json(self, api_url, headers):
@@ -52,6 +37,14 @@ class GreetingsPage(webapp2.RequestHandler):
 
         return {}
 
+    def get_coords(self, address):
+        formatted_address = "+".join(address.split(" "))
+        api_url = "https://maps.googleapis.com/maps/api/geocode/json?address={}&key=AIzaSyCRinMjNXlsj2gcztfCrcPUsgvtZEiRFLg"
+        api_url = api_url.format(formatted_address)
+        jason = self.fetch_json(api_url, {})
+        location = jason["results"][0]["geometry"]["location"]
+        return location["lat"], location["lng"]
+
     def get_uber_estimates(self, start_lat, start_lon, end_lat, end_lon):
         api_url = "https://api.uber.com/v1.2/estimates/price?start_latitude={}&start_longitude={}&end_latitude={}&end_longitude={}"
         api_url = api_url.format(start_lat, start_lon, end_lat, end_lon)
@@ -68,8 +61,20 @@ class GreetingsPage(webapp2.RequestHandler):
         estimate = [estimate for estimate in estimates["prices"] if estimate["localized_display_name"] == ride_type][0]
         return estimate["estimate"]
 
-    def get_uber_eta(self):
-        pass
+    def get_uber_etas(self, start_lat, start_lon):
+        api_url = "https://api.uber.com/v1.2/estimates/time?start_latitude={}&start_longitude={}"
+        api_url = api_url.format(start_lat, start_lon)
+        headers = {
+            "Authorization": "Token {}".format(uber.server_token),
+            "Accept-Language": "en_US",
+            "Content-Type": "application/json",
+        }
+        return self.fetch_json(api_url, headers)
+
+    def get_uber_eta(self, ride_type, start_lat, start_lon):
+        etas = self.get_uber_etas(start_lat, start_lon)
+        eta = [eta for eta in etas["times"] if eta["localized_display_name"] == ride_type]
+        return format_seconds(eta[0]["estimate"])
 
     def get_lyft_estimates(self, start_lat, start_lon, end_lat, end_lon):
         api_url = 'https://api.lyft.com/v1/cost?start_lat={}&start_lng={}&end_lat={}&end_lng={}'
@@ -125,7 +130,15 @@ class GreetingsPage(webapp2.RequestHandler):
         # print self.get_lyft_estimate("lyft", 37.770, -122.411, 37.791, -122.405)
         # print
         # print self.get_lyft_estimates(37.770, -122.411, 37.791, -122.405)
-        print self.get_lyft_eta("lyft", 37.770, -122.411)
+        # print self.get_lyft_eta("lyft", 37.770, -122.411)
+        # print self.get_lyft_etas(37.770, -122.411)
+        # print
+        # print self.get_uber_etas(37.770, -122.411)
+        print self.get_uber_eta("UberX", 37.770, -122.411)
+        # print self.get_coords("903 Marietta Street NorthWest, Atlanta, GA, USA")
+        # gmaps = googlemaps.Client(key='AIzaSyCRinMjNXlsj2gcztfCrcPUsgvtZEiRFLg')
+        # geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
+        # print geocode_result
 
     def post(self):
         result_template = jinja_env.get_template("templates/results.html")
