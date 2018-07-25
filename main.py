@@ -1,13 +1,11 @@
 # Imports
 import decimal
-import datetime
 import json
 import webapp2
 import os
 import jinja2
 import uber
 import lyft
-import googlemaps
 from google.appengine.api import urlfetch
 
 Deci = decimal.Decimal
@@ -39,8 +37,8 @@ class GreetingsPage(webapp2.RequestHandler):
 
     def get_coords(self, address):
         formatted_address = "+".join(address.split(" "))
-        api_url = "https://maps.googleapis.com/maps/api/geocode/json?address={}&key=AIzaSyCRinMjNXlsj2gcztfCrcPUsgvtZEiRFLg"
-        api_url = api_url.format(formatted_address)
+        api_url = "https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}"
+        api_url = api_url.format(formatted_address, api.key)
         jason = self.fetch_json(api_url, {})
         location = jason["results"][0]["geometry"]["location"]
         return location["lat"], location["lng"]
