@@ -23,6 +23,14 @@ def format_cost(number):
         return int(number)
     return number
 
+def get_lyft_deeplink(start_lat, start_lon, end_lat, end_lon):
+    api_url = "https://lyft.com/ride?id=lyft&pickup[latitude]={}&pickup[longitude]={}&partner={}&destination[latitude]={}&destination[longitude]={}"
+    api_url = api_url.format(
+        start_lat, start_lon, uber.client_id, end_lat, end_lon
+    )
+    print(api_url)
+    return api_url
+
 class GreetingsPage(webapp2.RequestHandler):
     def fetch_json(self, api_url, headers):
         try:
@@ -147,8 +155,7 @@ class ResultsPage(webapp2.RequestHandler):
 
 class TestPage(webapp2.RequestHandler):
     def get(self):
-        test_template = jinja_env.get_template("templates/api-test.html")
-        self.response.write(test_template.render())
+        self.response.write(get_lyft_deeplink(37.7833, -122.4167, 37.791, -122.405))
 
 app = webapp2.WSGIApplication([
     ('/', GreetingsPage),
