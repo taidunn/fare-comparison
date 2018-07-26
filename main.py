@@ -140,12 +140,24 @@ class GreetingsPage(webapp2.RequestHandler):
 
     def post(self):
         result_template = jinja_env.get_template("templates/results.html")
-        self.response.write(result_template.render())# Home Page
+        self.redirect("/results")# Home Page
 
 class ResultsPage(webapp2.RequestHandler):
     def get(self):
-        results_page = jinja_env.get_template('templates/results.html')
-        self.response.write(results_page.render())
+        pass
+        # from_address = self.request.get_all("from_address")
+        # to_address = self.request.get_all("to_address")
+        # results_page = jinja_env.get_template('templates/results.html')
+        # print from_address
+        # print to_address
+        # from_coords = (self.get_coords(from_address))
+        # to_coords = (self.get_coords(to_address))
+        # uber_eta = self.get_uber_eta
+        # lyft_eta = self.get_lyft_eta
+        # variables = {
+        #
+        # }
+        # self.response.write(results_page.render())
 
 class TestPage(webapp2.RequestHandler):
     def get(self):
