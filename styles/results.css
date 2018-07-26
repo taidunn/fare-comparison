@@ -7,6 +7,7 @@
 } */
 h1 {
   text-align: center;
+  color: white;
   font-family: 'Poiret One', cursive;
 }
 
@@ -72,5 +73,34 @@ table {
 
 iframe{
   margin: 0 auto;
+  display: block;
+  transform: translateY(40px);
+}
+
+.uber{
+  color: white;
+  background-color: black;
+  color: white;
+  width: 15%;
+  height: 15%;
+  font-size: 20px;
+  font-family: 'Poiret One', cursive;
+  transform: translateY(20px);
+  margin-left:auto;
+  margin-right:auto;
+  display: block;
+}
+
+.lyft{
+  color: white;
+  background-color: black;
+  color: white;
+  width: 15%;
+  height: 15%;
+  font-size: 20px;
+  font-family: 'Poiret One', cursive;
+  transform: translateY(40px);
+  margin-left:auto;
+  margin-right:auto;
   display: block;
 }

@@ -1,15 +1,13 @@
 # Imports
-import decimal
-import json
-import webapp2
 import os
+import json
 import jinja2
 import uber
 import lyft
 import api
+import webapp2
 from google.appengine.api import urlfetch
 
-Deci = decimal.Decimal
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
     autoescape = True,
@@ -19,6 +17,19 @@ def format_seconds(seconds):
     m, s = divmod(seconds, 60)
     h, m = divmod(m, 60)
     return "%d:%02d:%02d" % (h, m, s)
+
+def format_cost(number):
+    if number % 1 == 0:
+        return int(number)
+    return number
+
+def get_lyft_deeplink(start_lat, start_lon, end_lat, end_lon):
+    api_url = "https://lyft.com/ride?id=lyft&pickup[latitude]={}&pickup[longitude]={}&partner={}&destination[latitude]={}&destination[longitude]={}"
+    api_url = api_url.format(
+        start_lat, start_lon, uber.client_id, end_lat, end_lon
+    )
+    print(api_url)
+    return api_url
 
 class GreetingsPage(webapp2.RequestHandler):
     def fetch_json(self, api_url, headers):
@@ -91,9 +102,9 @@ class GreetingsPage(webapp2.RequestHandler):
         }
         jason = self.fetch_json(api_url, headers)
         ride = jason["cost_estimates"][0]
-        min = Deci(ride["estimated_cost_cents_min"]/100.0)
-        max = Deci(ride["estimated_cost_cents_max"]/100.0)
-        return "${}-{}".format(min.normalize(), max.normalize())
+        min = format_cost(ride["estimated_cost_cents_min"]/100.0)
+        max = format_cost(ride["estimated_cost_cents_max"]/100.0)
+        return "${}-{}".format(min, max)
 
     def get_lyft_etas(self, start_lat, start_lon):
         api_url = 'https://api.lyft.com/v1/eta?lat={}&lng={}'
@@ -115,33 +126,6 @@ class GreetingsPage(webapp2.RequestHandler):
     def get(self):
         home_template = jinja_env.get_template("templates/index.html")
         self.response.write(home_template.render())# Home Page
-        # try:
-        #     print self.get_uber_estimate("UberX", 37.770, -122.411, 37.791, -122.405)
-        #     # print get_uber_estimate()
-        # except Exception as e:
-        #     print e
-
-        # Quick debugging code
-        # print self.get_uber_estimates(37.770, -122.411, 37.791, -122.405)
-        # print
-        # print self.get_uber_estimate("UberX", 37.770, -122.411, 37.791, -122.405)
-        # print
-        # print self.get_lyft_estimate("lyft", 37.770, -122.411, 37.791, -122.405)
-        # print
-        # print self.get_lyft_estimates(37.770, -122.411, 37.791, -122.405)
-        # print self.get_lyft_eta("lyft", 37.770, -122.411)
-        # print self.get_lyft_etas(37.770, -122.411)
-        # print
-        # print self.get_uber_etas(37.770, -122.411)
-        print self.get_uber_eta("UberX", 37.770, -122.411)
-        # print self.get_coords("903 Marietta Street NorthWest, Atlanta, GA, USA")
-        # gmaps = googlemaps.Client(key='AIzaSyCRinMjNXlsj2gcztfCrcPUsgvtZEiRFLg')
-        # geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
-        # print geocode_result
-
-    def post(self):
-        result_template = jinja_env.get_template("templates/results.html")
-        self.redirect("/results")# Home Page
 
 class ResultsPage(webapp2.RequestHandler):
     def get(self):
@@ -160,10 +144,18 @@ class ResultsPage(webapp2.RequestHandler):
         del page
         self.response.write(results_page.render(variables))
 
+    # def get_map(start_lat, start_lon, end_lat, end_lon):
+    #     directions_result = gmaps.directions
+    #     now = datetime.now()
+    #     directions_result = gmaps.directions("Sydney Town Hall",
+    #                                  "Parramatta, NSW",
+    #                                  mode="driving",
+    #                                  departure_time=now)
+    #
+
 class TestPage(webapp2.RequestHandler):
     def get(self):
-        test_template = jinja_env.get_template("templates/api-test.html")
-        self.response.write(test_template.render())
+        self.response.write(get_lyft_deeplink(37.7833, -122.4167, 37.791, -122.405))
 
 app = webapp2.WSGIApplication([
     ('/', GreetingsPage),
