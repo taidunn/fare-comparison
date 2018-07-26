@@ -6,6 +6,7 @@ import uber
 import lyft
 import api
 import webapp2
+import urllib
 from google.appengine.api import urlfetch
 
 jinja_env = jinja2.Environment(
@@ -28,7 +29,6 @@ def get_lyft_deeplink(start_lat, start_lon, end_lat, end_lon):
     api_url = api_url.format(
         start_lat, start_lon, uber.client_id, end_lat, end_lon
     )
-    print(api_url)
     return api_url
 
 class GreetingsPage(webapp2.RequestHandler):
@@ -48,8 +48,9 @@ class GreetingsPage(webapp2.RequestHandler):
         return {}
 
     def get_coords(self, address):
-        formatted_address = "+".join(address.split(" "))
-        api_url = "https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}"
+        #formatted_address = "+".join(address.split(" "))
+        formatted_address = urllib.urlencode({"address": address})
+        api_url = "https://maps.googleapis.com/maps/api/geocode/json?{}&key={}"
         api_url = api_url.format(formatted_address, api.key)
         jason = self.fetch_json(api_url, {})
         location = jason["results"][0]["geometry"]["location"]
@@ -139,7 +140,8 @@ class ResultsPage(webapp2.RequestHandler):
             "ueta": page.get_uber_eta("UberX", from_coords[0], from_coords[1]),
             "leta": page.get_lyft_eta("lyft", from_coords[0], from_coords[1]),
             "ufare": page.get_uber_estimate("UberX", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
-            "lfare": page.get_lyft_estimate("lyft", from_coords[0], from_coords[1], to_coords[0], to_coords[1])
+            "lfare": page.get_lyft_estimate("lyft", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
+            "ldeeplink": get_lyft_deeplink(from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
         }
         del page
         self.response.write(results_page.render(variables))
