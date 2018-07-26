@@ -7,6 +7,7 @@
 } */
 h1 {
   text-align: center;
+  color: white;
   font-family: 'Poiret One', cursive;
 }
 
@@ -73,4 +74,14 @@ table {
 iframe{
   margin: 0 auto;
   display: block;
+}
+
+.uber{
+  color: white;
+  background-color: black;
+  color: white;
+  width: 15%;
+  height: 15%;
+  font-size: 20px;
+  margin: 0 auto;
 }

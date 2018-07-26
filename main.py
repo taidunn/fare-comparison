@@ -141,6 +141,15 @@ class ResultsPage(webapp2.RequestHandler):
         del page
         self.response.write(results_page.render(variables))
 
+    # def get_map(start_lat, start_lon, end_lat, end_lon):
+    #     directions_result = gmaps.directions
+    #     now = datetime.now()
+    #     directions_result = gmaps.directions("Sydney Town Hall",
+    #                                  "Parramatta, NSW",
+    #                                  mode="driving",
+    #                                  departure_time=now)
+    #
+
 class TestPage(webapp2.RequestHandler):
     def get(self):
         test_template = jinja_env.get_template("templates/api-test.html")
