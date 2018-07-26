@@ -142,6 +142,7 @@ class ResultsPage(webapp2.RequestHandler):
             "ufare": page.get_uber_estimate("UberX", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
             "lfare": page.get_lyft_estimate("lyft", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
             "ldeeplink": get_lyft_deeplink(from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
+            "from_address" : from_address, "to_address": to_address
         }
         del page
         self.response.write(results_page.render(variables))
