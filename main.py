@@ -6,6 +6,7 @@ import os
 import jinja2
 import uber
 import lyft
+import api
 from google.appengine.api import urlfetch
 
 Deci = decimal.Decimal
@@ -144,20 +145,20 @@ class GreetingsPage(webapp2.RequestHandler):
 
 class ResultsPage(webapp2.RequestHandler):
     def get(self):
-        pass
-        # from_address = self.request.get_all("from_address")
-        # to_address = self.request.get_all("to_address")
-        # results_page = jinja_env.get_template('templates/results.html')
-        # print from_address
-        # print to_address
-        # from_coords = (self.get_coords(from_address))
-        # to_coords = (self.get_coords(to_address))
-        # uber_eta = self.get_uber_eta
-        # lyft_eta = self.get_lyft_eta
-        # variables = {
-        #
-        # }
-        # self.response.write(results_page.render())
+        from_address = self.request.get("fromAddress")
+        to_address = self.request.get("toAddress")
+        results_page = jinja_env.get_template('templates/results.html')
+        page = GreetingsPage()
+        from_coords = (page.get_coords(from_address))
+        to_coords = (page.get_coords(to_address))
+        variables = {
+            "ueta": page.get_uber_eta("UberX", from_coords[0], from_coords[1]),
+            "leta": page.get_lyft_eta("lyft", from_coords[0], from_coords[1]),
+            "ufare": page.get_uber_estimate("UberX", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
+            "lfare": page.get_lyft_estimate("lyft", from_coords[0], from_coords[1], to_coords[0], to_coords[1])
+        }
+        del page
+        self.response.write(results_page.render(variables))
 
 class TestPage(webapp2.RequestHandler):
     def get(self):
