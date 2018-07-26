@@ -3,11 +3,30 @@ h1 {
   font-family: 'Poiret One', cursive;
 }
 
+.allinfo{
+  margin-left:auto;
+  margin-right:auto;
+  width:960px;
+  /* background-color: gray;
+  height: 100%;
+  width: 50%;
+  opacity: .50;
+  margin: 0 auto;
+  z-index: 0;
+  size: 100% 50%; */
+}
+
 .title{
-  width: 100%;
-  height: 20%;
+  width:100%;
+  height:5%;
+  /* padding: 10px 16px; */
+  margin: 0 auto;
   color: white;
   font-size: 28px;
+  /* background-color: gray;
+  opacity: .75; */
+  /* position: fixed; */
+
 }
 
 .background-image {
@@ -26,7 +45,7 @@ h1 {
 .top {
   color: white;
   background-color: black;
-  width: 15%;
+  width: 20%;
   height: 15%;
   margin: 0 auto;
   transform: translateY(-40px);
@@ -51,7 +70,7 @@ h1 {
 .bottom {
   background-color: black;
   color: white;
-  width: 15%;
+  width: 20%;
   height: 15%;
   /* position: absolute; */
   /* line-height: 200px; */

@@ -67,3 +67,8 @@ table {
 .TableMaster {
 	margin-right: 920px;
 }
+
+iframe{
+  margin: 0 auto;
+  display: block;
+}
