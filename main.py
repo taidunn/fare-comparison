@@ -118,11 +118,6 @@ class GreetingsPage(webapp2.RequestHandler):
     def get(self):
         home_template = jinja_env.get_template("templates/index.html")
         self.response.write(home_template.render())# Home Page
-        print self.get_uber_eta("UberX", 37.770, -122.411)
-
-    def post(self):
-        result_template = jinja_env.get_template("templates/results.html")
-        self.redirect("/results")# Home Page
 
 class ResultsPage(webapp2.RequestHandler):
     def get(self):
