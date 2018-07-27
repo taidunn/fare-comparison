@@ -1,2 +1,2 @@
 # fare-comparison
-Requires uber-rides and lyft_rides py packages
+Webapp that compares Lyft and Uber prices
