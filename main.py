@@ -27,7 +27,15 @@ def format_cost(number):
 def get_lyft_deeplink(start_lat, start_lon, end_lat, end_lon):
     api_url = "https://lyft.com/ride?id=lyft&pickup[latitude]={}&pickup[longitude]={}&partner={}&destination[latitude]={}&destination[longitude]={}"
     api_url = api_url.format(
-        start_lat, start_lon, uber.client_id, end_lat, end_lon
+        start_lat, start_lon, lyft.client_id, end_lat, end_lon
+    )
+    return api_url
+
+def get_uber_deeplink(start_lat, start_lon, end_lat, end_lon, from_address, to_address):
+    api_url = "https://m.uber.com/ul/?client_id={}&action=setPickup&pickup[latitude]={}&pickup[longitude]={}&pickup&pickup[formatted_address]{}&dropoff[latitude]={}&dropoff[longitude]={}&dropoff[formatted_address]{}"
+    api_url = api_url.format(
+        uber.client_id, start_lat, start_lon, urllib.urlencode({"": from_address}),
+        end_lat, end_lon, urllib.urlencode({"": to_address})
     )
     return api_url
 
@@ -142,19 +150,11 @@ class ResultsPage(webapp2.RequestHandler):
             "ufare": page.get_uber_estimate("UberX", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
             "lfare": page.get_lyft_estimate("lyft", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
             "ldeeplink": get_lyft_deeplink(from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
+            "udeeplink": get_uber_deeplink(from_coords[0], from_coords[1], from_address, to_coords[0], to_coords[1], to_address),
             "from_address" : from_address, "to_address": to_address
         }
         del page
         self.response.write(results_page.render(variables))
-
-    # def get_map(start_lat, start_lon, end_lat, end_lon):
-    #     directions_result = gmaps.directions
-    #     now = datetime.now()
-    #     directions_result = gmaps.directions("Sydney Town Hall",
-    #                                  "Parramatta, NSW",
-    #                                  mode="driving",
-    #                                  departure_time=now)
-    #
 
 class TestPage(webapp2.RequestHandler):
     def get(self):
