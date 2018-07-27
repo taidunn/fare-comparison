@@ -138,23 +138,27 @@ class GreetingsPage(webapp2.RequestHandler):
 
 class ResultsPage(webapp2.RequestHandler):
     def get(self):
-        from_address = self.request.get("fromAddress")
-        to_address = self.request.get("toAddress")
-        results_page = jinja_env.get_template('templates/results.html')
-        page = GreetingsPage()
-        from_coords = (page.get_coords(from_address))
-        to_coords = (page.get_coords(to_address))
-        variables = {
-            "ueta": page.get_uber_eta("UberX", from_coords[0], from_coords[1]),
-            "leta": page.get_lyft_eta("lyft", from_coords[0], from_coords[1]),
-            "ufare": page.get_uber_estimate("UberX", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
-            "lfare": page.get_lyft_estimate("lyft", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
-            "ldeeplink": get_lyft_deeplink(from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
-            "udeeplink": get_uber_deeplink(from_coords[0], from_coords[1], from_address, to_coords[0], to_coords[1], to_address),
-            "from_address" : from_address, "to_address": to_address
-        }
-        del page
-        self.response.write(results_page.render(variables))
+        try:
+            from_address = self.request.get("fromAddress")
+            to_address = self.request.get("toAddress")
+            results_page = jinja_env.get_template('templates/results.html')
+            page = GreetingsPage()
+            from_coords = (page.get_coords(from_address))
+            to_coords = (page.get_coords(to_address))
+            variables = {
+                "ueta": page.get_uber_eta("UberX", from_coords[0], from_coords[1]),
+                "leta": page.get_lyft_eta("lyft", from_coords[0], from_coords[1]),
+                "ufare": page.get_uber_estimate("UberX", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
+                "lfare": page.get_lyft_estimate("lyft", from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
+                "ldeeplink": get_lyft_deeplink(from_coords[0], from_coords[1], to_coords[0], to_coords[1]),
+                "udeeplink": get_uber_deeplink(from_coords[0], from_coords[1], from_address, to_coords[0], to_coords[1], to_address),
+                "from_address" : from_address, "to_address": to_address
+            }
+            del page
+            self.response.write(results_page.render(variables))
+        except Exception as e:
+            print # -*- coding: utf-8 -*-
+            self.redirect("/")
 
 class TestPage(webapp2.RequestHandler):
     def get(self):
