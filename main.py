@@ -157,7 +157,7 @@ class ResultsPage(webapp2.RequestHandler):
             del page
             self.response.write(results_page.render(variables))
         except Exception as e:
-            print # -*- coding: utf-8 -*-
+            print e
             self.redirect("/")
 
 class TestPage(webapp2.RequestHandler):
