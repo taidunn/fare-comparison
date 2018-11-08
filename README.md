@@ -10,3 +10,4 @@ Please visit our website at https://comparison-fare-1532360470324.appspot.com/
 Good luck everyone interested in attending Google's Computer Science Summer Institute. You will have a long, but very fun journey ahead of you. I hope you all have a great time there like we did, but I also hope you guys get just as much if not more of a challenge than we recieved.
 
 #GoogleCSSI #GoogleStudents
+CSSI Class of 2018
